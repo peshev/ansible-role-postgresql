@@ -1,0 +1,4 @@
+postgresql_repository_url: "deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+postgresql_repository_key_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+postgresql_version: ~
+postgresql_package_version_suffix: "{{ ('-' + postgresql_version) if postgresql_version else '' }}"

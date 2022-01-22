@@ -1,0 +1,15 @@
+# https://www.postgresql.org/download/linux/ubuntu/
+- name: Import the repository signing key
+  apt_key:
+    url: "{{ postgresql_repository_key_url }}"
+- name: Create the file repository configuration
+  apt_repository:
+    repo: "{{ postgresql_repository_url }}"
+    filename: docker
+- name: Update the package lists and install the latest version of PostgreSQL
+  apt:
+    update_cache: yes
+    name:
+      - "postgresql{{ postgresql_package_version_suffix }}"
+      - "postgresql-client{{ postgresql_package_version_suffix }}"
+      - "pgadmin4"
