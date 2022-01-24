@@ -5,11 +5,20 @@
 - name: Create the file repository configuration
   apt_repository:
     repo: "{{ postgresql_repository_url }}"
-    filename: docker
+    filename: pgdg
 - name: Update the package lists and install the latest version of PostgreSQL
   apt:
     update_cache: yes
     name:
       - "postgresql{{ postgresql_package_version_suffix }}"
       - "postgresql-client{{ postgresql_package_version_suffix }}"
-      - "pgadmin4"
+- name: Install ansible postgresql dependencies
+  apt:
+    name: python3-psycopg2
+- name: Set password for postgres user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: postgres
+    password: "{{ postgresql_postgres_password }}"
+  when: postgresql_postgres_password
